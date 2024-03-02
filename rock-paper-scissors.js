@@ -45,6 +45,8 @@ function playSingle(ps, cs) {
 
 }
 
+
+/*
 function playGame() {
 
   let playerSelection;
@@ -73,7 +75,7 @@ function playGame() {
   }
 
 }
-
+*/
 
 
 console.log(playGame('paper', getComputerChoice()))
