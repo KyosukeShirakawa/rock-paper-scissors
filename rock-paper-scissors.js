@@ -12,7 +12,7 @@ function getComputerChoice() {
 
 
 
-function playSingle(ps, cs) {
+function playRound(ps, cs) {
 
   let playerSelection =  ps.toLowerCase()
   let computerSelection = cs.toLowerCase()
@@ -77,6 +77,28 @@ function playGame() {
 }
 */
 
+const rockButton = document.querySelector('.rock-button');
+const paperButton = document.querySelector('.paper-button');
+const scissorsButton = document.querySelector('.scissors-button');
+const display = document.querySelector('.result-display');
 
-console.log(playGame('paper', getComputerChoice()))
+
+/* Display results */
+
+
+
+
+/* Add EventHandler to rock paper scissor buttons */
+rockButton.addEventListener('click', () => {
+  console.log(playRound('rock', getComputerChoice()));
+});
+rockButton.addEventListener('click', () => {
+  console.log(playRound('rock', getComputerChoice()));
+});
+paperButton.addEventListener('click', () => {
+  console.log(playRound('paper', getComputerChoice()));
+});
+scissorsButton.addEventListener('click', () => {
+  console.log(playRound('scissors', getComputerChoice()));
+});
 
