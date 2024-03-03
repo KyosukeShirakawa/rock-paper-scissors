@@ -1,6 +1,16 @@
-function getComputerChoice() {
-  let randomNum = Math.floor(Math.random() * 3)
+let playerScore = 0;
+let computerScore = 0;
 
+// getters
+function getPlayerScore(){
+  return playerScore;
+}
+function getComputerScore(){
+  return computerScore;
+}
+
+function generateComputerChoice() {
+  let randomNum = Math.floor(Math.random() * 3)
   if (randomNum === 0) {
     return 'Rock'
   }else if (randomNum === 1) {
@@ -11,9 +21,8 @@ function getComputerChoice() {
 }
 
 
-
+//game logic
 function playRound(ps, cs) {
-
   let playerSelection =  ps.toLowerCase()
   let computerSelection = cs.toLowerCase()
 
@@ -21,84 +30,88 @@ function playRound(ps, cs) {
     if(computerSelection==='rock') {
       return "Tie"
     }else if (computerSelection === 'paper') {
-      return "You Lose.."
+      computerScore++;
+      return "Computer +1pt"
     }else if (computerSelection === "scissors" ){
-      return "You Win!!"
+      playerScore++;
+      return "Player +1pt"
     }
   }else if (playerSelection === 'paper'){
     if(computerSelection==='rock') {
-      return "You Win!!"
+      playerScore++;
+      return "Player +1pt"
     }else if (computerSelection === 'paper') {
       return "Tie"
     }else if (computerSelection === "scissors" ){
-      return "You Lose.."
+      computerScore++;
+      return "Computer +1pt"
     }
   } else if (playerSelection === 'scissors'){
     if(computerSelection==='rock') {
-      return "You Lose.."
+      computerScore++;
+      return "Computer +1pt"
     }else if (computerSelection === 'paper') {
-      return "You Win!!"
+      playerScore++;
+      return "Player +1pt"
     }else if (computerSelection === "scissors" ){
       return "Tie"
     }
   }
+}
 
+function displayScores(){
+  if(playerScore<5&&computerScore<5){
+    return `Player: ${getPlayerScore()} Computer: ${getComputerScore()}`;
+  } else if(playerScore>=5){
+    resetScores();
+    return 'Winner: Player';
+  }else if(computerScore>=5){
+    resetScores();
+    return 'Winner: Computer';
+  }
+}
+
+function resetScores(){
+  playerScore = 0;
+  computerScore = 0;
 }
 
 
-/*
-function playGame() {
 
-  let playerSelection;
-  let computerSelection;
-  let winCnt =0;
-  for (let i = 0; i<5;i++){
-    playerSelection = prompt("Please enter rock, paper or scissors");
-    computerSelection = getComputerChoice();
-    let result = playSingle(playerSelection, computerSelection)
-    if(result === "You Win!!"){
-      winCnt++;
-      console.log("You Win!!")
-    }else if(result === "You Lose.."){
-      winCnt--;
-      console.log("You Lose..")
-    }else {
-      console.log("Tie")
-    }
-  }
-  if(winCnt > 0){
-    console.log("Winner: Player")
-  }else if(winCnt === 0){
-    console.log("Winner: It's a draw");
-  }else{
-    console.log("Winner: Computer");
-  }
+// Display results 
+const display = document.querySelector('.result-display');
+const pointText = document.createElement('p');
+const resultText = document.createElement('p');
+resultText.innerHTML = 'Plater: 0 Computer: 0'
 
-}
-*/
+display.appendChild(pointText);
+display.appendChild(resultText);
 
+
+// EventHandler for buttons
 const rockButton = document.querySelector('.rock-button');
 const paperButton = document.querySelector('.paper-button');
 const scissorsButton = document.querySelector('.scissors-button');
-const display = document.querySelector('.result-display');
-
-
-/* Display results */
+const btns = document.querySelectorAll('.btn');
 
 
 
 
-/* Add EventHandler to rock paper scissor buttons */
 rockButton.addEventListener('click', () => {
-  console.log(playRound('rock', getComputerChoice()));
-});
-rockButton.addEventListener('click', () => {
-  console.log(playRound('rock', getComputerChoice()));
+  pointText.innerHTML = playRound('rock', generateComputerChoice());
+  resultText.textContent = displayScores();
+  console.log(displayScores());
 });
 paperButton.addEventListener('click', () => {
-  console.log(playRound('paper', getComputerChoice()));
+  pointText.innerHTML = playRound('paper', generateComputerChoice());
+  resultText.textContent = displayScores();
+
+  console.log(displayScores());
+
 });
 scissorsButton.addEventListener('click', () => {
-  console.log(playRound('scissors', getComputerChoice()));
+  pointText.innerHTML = playRound('scissors', generateComputerChoice());
+  resultText.textContent = displayScores();
+  console.log(displayScores());
 });
 
